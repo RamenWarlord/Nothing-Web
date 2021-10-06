@@ -1,17 +1,16 @@
 import express from "express";
 import cors from "cors";
+import users from "./api/users.route.js";
 import bcrypt from "bcrypt";
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-const users = [];
+app.use("/api/v1/users", users);
+app.use("*", (req, res) => res.status(404).json({ error: "not found" }));
 
-app.get("/", (req, res) => {
-  res.render();
-});
-
+/*
 app.get("/users", async (req, res) => {
   res.json(users);
 });
@@ -44,6 +43,6 @@ app.post("/users/login", async (req, res) => {
     res.status(500).send();
   }
 });
-
+*/
 app.listen(3000);
 export default app;
